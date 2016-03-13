@@ -1,0 +1,33 @@
+NAME
+====
+netquery - the system introspection tool
+
+DESCRIPTION
+===========
+
+The goal is to get a library with unified interface to introspect system:
+* use GraphQL as the query language
+* retrieve data in the JSON format.
+
+DEVELOPMENT
+===========
+
+* One commit one change.
+* Every single commit must produce buildable package.
+* NetBSD code style (share/misc/style)
+* Written in ANSI C99
+
+GOALS
+=====
+* The primary goal is to write an introspection tool.
+* Small-footprint.
+* Portable across modern POSIX systems.
+* Limit dependencies to GraphQL and JSON parsers.
+
+LICENSE
+=======
+2-clause-bsd
+
+AUTHOR
+======
+2016 Kamil Rytarowski
