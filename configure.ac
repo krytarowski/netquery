@@ -11,7 +11,7 @@ AC_CHECK_LIB(graphqlparser, [graphql_parse_string],
              [HAVE_LIBGRAPHQLPARSER=0])
 
 if test $HAVE_LIBGRAPHQLPARSER -eq 1; then
-        AC_CHECK_HEADERS([graphqlparser/c/GraphQLParser.h],
+        AC_CHECK_HEADERS([c/GraphQLParser.h],
                          [LIBGRAPHQLPARSER_CFLAGS="$LIBGRAPHQLPARSER_CFLAGS"],
                          [HAVE_LIBGRAPHQLPARSER=0])
 fi

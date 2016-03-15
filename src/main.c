@@ -27,12 +27,56 @@
 
 #include <stdlib.h>
 
+#include <err.h>
+
+#include <c/GraphQLAstNode.h>
+#include <c/GraphQLAstVisitor.h>
+#include <c/GraphQLParser.h>
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
+static struct GraphQLAstVisitorCallbacks callbacks;
+
+static int
+visit_document(const struct GraphQLAstDocument *document, void *user_data)
+{
+	printf("%s(): hello..\n", __func__);
+
+	return 0;
+}
+
+static void
+end_visit_document(const struct GraphQLAstDocument *document, void *user_data)
+{
+	printf("%s(): hello..\n", __func__);
+
+	return;
+}
+
 int
 main(int argc, char **argv)
 {
+	struct GraphQLAstNode *ast;
+	const char *error;
+
+	if (argc != 2)
+		errx(EXIT_FAILURE, "No query");
+
+	ast = graphql_parse_string(argv[1], &error);
+	if (ast == NULL) {
+		fprintf(stderr, "Error: %s\n", error);
+		graphql_error_free(error);
+		exit(EXIT_FAILURE);
+	}
+
+	callbacks.visit_document = visit_document;
+	callbacks.end_visit_document = end_visit_document;
+
+	graphql_node_visit(ast, &callbacks, NULL);
+
+	graphql_node_free(ast);
+
 	return EXIT_SUCCESS;
 }
